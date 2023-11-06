@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://vpm2cn4kcsti"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hlq6f"]
+radius = 30.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_kaodh"]
+radius = 30.0
+height = 60.0
+radial_segments = 16
+rings = 8
+
+[node name="Ball" type="RigidBody2D"]
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_hlq6f")
+
+[node name="Mesh" type="MeshInstance2D" parent="."]
+mesh = SubResource("SphereMesh_kaodh")

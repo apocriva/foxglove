@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://br6gv326r477f"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_03jk1"]
+radius = 15.0
+height = 150.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_sc5cm"]
+radius = 15.0
+height = 150.0
+radial_segments = 16
+
+[node name="Wall" type="RigidBody2D"]
+gravity_scale = 0.0
+freeze = true
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_03jk1")
+
+[node name="Mesh" type="MeshInstance2D" parent="."]
+mesh = SubResource("CapsuleMesh_sc5cm")
