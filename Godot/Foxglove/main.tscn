@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dfedmlocl77fq"]
+[gd_scene load_steps=5 format=3 uid="uid://dfedmlocl77fq"]
 
 [ext_resource type="PackedScene" uid="uid://c2yl0r677tmon" path="res://control.tscn" id="1_iedoo"]
 [ext_resource type="PackedScene" uid="uid://vpm2cn4kcsti" path="res://ball.tscn" id="2_43kum"]
 [ext_resource type="PackedScene" uid="uid://br6gv326r477f" path="res://wall.tscn" id="3_yg6na"]
+[ext_resource type="PackedScene" uid="uid://bi5rc35npvr4g" path="res://module.tscn" id="4_kitij"]
 
 [node name="Main" type="Node2D"]
 
@@ -38,3 +39,6 @@ rotation = -1.5708
 [node name="Wall7" parent="." instance=ExtResource("3_yg6na")]
 position = Vector2(523, 569)
 rotation = -1.8326
+
+[node name="Module" parent="." instance=ExtResource("4_kitij")]
+position = Vector2(431, 67)

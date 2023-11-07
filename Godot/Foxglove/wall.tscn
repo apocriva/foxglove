@@ -4,10 +4,11 @@
 radius = 15.0
 height = 150.0
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_sc5cm"]
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_f5yfw"]
 radius = 15.0
 height = 150.0
-radial_segments = 16
+radial_segments = 8
+rings = 2
 
 [node name="Wall" type="RigidBody2D"]
 gravity_scale = 0.0
@@ -16,5 +17,5 @@ freeze = true
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_03jk1")
 
-[node name="Mesh" type="MeshInstance2D" parent="."]
-mesh = SubResource("CapsuleMesh_sc5cm")
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+mesh = SubResource("CapsuleMesh_f5yfw")
