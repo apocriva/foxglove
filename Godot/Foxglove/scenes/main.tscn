@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://o2n5lsum2wkk"]
+
+[ext_resource type="Script" path="res://scenes/main.gd" id="1_a17bc"]
+[ext_resource type="PackedScene" uid="uid://b1515i7oyom8e" path="res://scenes/thrust_module.tscn" id="2_iwrwe"]
+
+[sub_resource type="Gradient" id="Gradient_mec0v"]
+offsets = PackedFloat32Array(0, 0.331967, 0.79918, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0.782609, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_rm8fs"]
+gradient = SubResource("Gradient_mec0v")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_w01j3"]
+lifetime_randomness = 0.5
+emission_shape = 1
+emission_sphere_radius = 5000.0
+particle_flag_disable_z = true
+direction = Vector3(0, 0, 0)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_max = 1.5
+color_ramp = SubResource("GradientTexture1D_rm8fs")
+attractor_interaction_enabled = false
+
+[node name="Main" type="Node"]
+script = ExtResource("1_a17bc")
+module_scene = ExtResource("2_iwrwe")
+
+[node name="ViewCamera" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+
+[node name="Stars" type="GPUParticles2D" parent="ViewCamera"]
+z_index = -1
+amount = 1000
+process_material = SubResource("ParticleProcessMaterial_w01j3")
+lifetime = 8.0
+preprocess = 8.0

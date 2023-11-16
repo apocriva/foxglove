@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://urn1n1i2eqe"]
+
+[ext_resource type="Script" path="res://scenes/module.gd" id="1_8gypf"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_wcwrt"]
+size = Vector2(32, 32)
+
+[sub_resource type="Gradient" id="Gradient_8x434"]
+interpolation_mode = 1
+colors = PackedColorArray(0.6, 0.594, 0.6, 1, 0.85, 0.85, 0.85, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qd815"]
+gradient = SubResource("Gradient_8x434")
+fill = 2
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.0625, 0.0625)
+metadata/_snap_enabled = true
+metadata/_snap_count = 16
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_id66e"]
+size = Vector2(32, 32)
+
+[node name="Module" type="RigidBody2D"]
+script = ExtResource("1_8gypf")
+metadata/_edit_group_ = true
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+mesh = SubResource("QuadMesh_wcwrt")
+texture = SubResource("GradientTexture2D_qd815")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_id66e")
