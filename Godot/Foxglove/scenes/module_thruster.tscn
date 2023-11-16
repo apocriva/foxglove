@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://b1515i7oyom8e"]
 
-[ext_resource type="Script" path="res://scenes/thrust_module.gd" id="1_iw3ub"]
+[ext_resource type="Script" path="res://scenes/module_thruster.gd" id="1_ob74c"]
 [ext_resource type="Texture2D" uid="uid://c63jwuiobf5ay" path="res://sprites/module_core.png" id="2_c6b88"]
 [ext_resource type="Texture2D" uid="uid://o5bgk0ueqsx6" path="res://sprites/module_blank.png" id="3_47v3d"]
 
@@ -13,8 +13,8 @@ size = Vector2(32, 32)
 [sub_resource type="QuadMesh" id="QuadMesh_cop2d"]
 size = Vector2(16, 8)
 
-[node name="ThrustModule" type="RigidBody2D"]
-script = ExtResource("1_iw3ub")
+[node name="ModuleThruster" type="RigidBody2D"]
+script = ExtResource("1_ob74c")
 metadata/_edit_group_ = true
 
 [node name="BlockMesh" type="MeshInstance2D" parent="."]

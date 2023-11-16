@@ -1,6 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://urn1n1i2eqe"]
+[gd_scene load_steps=7 format=3 uid="uid://urn1n1i2eqe"]
 
-[ext_resource type="Script" path="res://scenes/module.gd" id="1_8gypf"]
+[ext_resource type="Script" path="res://scenes/module_core.gd" id="1_5jhnw"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_wcwrt"]
 size = Vector2(32, 32)
@@ -17,16 +17,26 @@ fill_to = Vector2(0.0625, 0.0625)
 metadata/_snap_enabled = true
 metadata/_snap_count = 16
 
+[sub_resource type="SphereMesh" id="SphereMesh_pfnfn"]
+radius = 8.0
+height = 16.0
+radial_segments = 8
+rings = 4
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_id66e"]
 size = Vector2(32, 32)
 
-[node name="Module" type="RigidBody2D"]
-script = ExtResource("1_8gypf")
+[node name="ModuleCore" type="RigidBody2D"]
+script = ExtResource("1_5jhnw")
 metadata/_edit_group_ = true
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="."]
 mesh = SubResource("QuadMesh_wcwrt")
 texture = SubResource("GradientTexture2D_qd815")
+
+[node name="MeshCenter" type="MeshInstance2D" parent="."]
+position = Vector2(0, 6)
+mesh = SubResource("SphereMesh_pfnfn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_id66e")
