@@ -5,15 +5,10 @@ extends RigidBody2D
 @export var thruster_force:Vector2
 var active_force:Vector2 = Vector2.ZERO
 
-var channel:CommChannel
+var comm_network:CommNetwork
 
 func _ready():
-	register_signals()
-
-func register_signals():
-	# Tune in to the proper channel.
-	#channel.signal_updated.connect(_on_signal_updated)
-	pass
+	_update_comm_network()
 
 func _on_signal_updated(value):
 	if value == 0:
@@ -23,3 +18,11 @@ func _on_signal_updated(value):
 
 func _physics_process(delta):
 	apply_central_force(active_force.rotated(rotation))
+
+func _update_comm_network():
+	# We need to join our parent's comm network.
+	var parent = get_parent()
+	if parent == null or parent.get("comm_network") == null:
+		# Or make our own I guess!
+		comm_network = CommNetwork.new()
+		add_child(comm_network)

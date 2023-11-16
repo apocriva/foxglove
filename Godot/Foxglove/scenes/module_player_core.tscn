@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://urn1n1i2eqe"]
 
-[ext_resource type="Script" path="res://scenes/module_core.gd" id="1_5jhnw"]
+[ext_resource type="Script" path="res://scripts/module_player_core.gd" id="1_lh520"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_wcwrt"]
 size = Vector2(32, 32)
@@ -26,8 +26,8 @@ rings = 4
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_id66e"]
 size = Vector2(32, 32)
 
-[node name="ModuleCore" type="RigidBody2D"]
-script = ExtResource("1_5jhnw")
+[node name="ModulePlayerCore" type="RigidBody2D"]
+script = ExtResource("1_lh520")
 metadata/_edit_group_ = true
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="."]
