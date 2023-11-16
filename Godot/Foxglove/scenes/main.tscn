@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://o2n5lsum2wkk"]
+[gd_scene load_steps=8 format=3 uid="uid://o2n5lsum2wkk"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_a17bc"]
 [ext_resource type="PackedScene" uid="uid://b1515i7oyom8e" path="res://scenes/thrust_module.tscn" id="2_iwrwe"]
@@ -24,6 +24,12 @@ scale_max = 1.5
 color_ramp = SubResource("GradientTexture1D_rm8fs")
 attractor_interaction_enabled = false
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iru6b"]
+size = Vector2(1500, 100)
+
+[sub_resource type="QuadMesh" id="QuadMesh_xkx3o"]
+size = Vector2(1500, 100)
+
 [node name="Main" type="Node"]
 script = ExtResource("1_a17bc")
 module_scene = ExtResource("2_iwrwe")
@@ -37,3 +43,16 @@ amount = 1000
 process_material = SubResource("ParticleProcessMaterial_w01j3")
 lifetime = 8.0
 preprocess = 8.0
+
+[node name="World" type="Node2D" parent="."]
+
+[node name="Block" type="StaticBody2D" parent="World"]
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Block"]
+position = Vector2(0, 232)
+shape = SubResource("RectangleShape2D_iru6b")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="World/Block"]
+position = Vector2(0, 232)
+mesh = SubResource("QuadMesh_xkx3o")

@@ -6,8 +6,11 @@ extends Node
 func _ready():
 	# Player gets a vessel ie one module lol
 	var module = module_scene.instantiate()
+	module.position = Vector2.ZERO
+	module.rotation = PI
 	add_child(module)
-	$ViewCamera.reparent(module)
+	$ViewCamera.position = module.position
+	$ViewCamera.reparent(module, false)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
