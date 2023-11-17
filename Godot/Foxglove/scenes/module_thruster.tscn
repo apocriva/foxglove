@@ -15,6 +15,7 @@ size = Vector2(16, 8)
 
 [node name="ModuleThruster" type="RigidBody2D"]
 script = ExtResource("1_pvq6g")
+thruster_force = Vector2(0, 250)
 metadata/_edit_group_ = true
 
 [node name="BlockMesh" type="MeshInstance2D" parent="."]

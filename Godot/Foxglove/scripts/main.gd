@@ -1,17 +1,18 @@
 extends Node
 
-@export var module_scene: PackedScene
+@export var thruster_scene: PackedScene
+@export var player_core_scene: PackedScene
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	# Player gets a vessel ie one module lol
-	var module = module_scene.instantiate()
-	module.position = Vector2.ZERO
-	module.rotation = PI
-	add_child(module)
-	$ViewCamera.position = module.position
-	$ViewCamera.reparent(module, false)
+	var player_core_module = player_core_scene.instantiate()
+	player_core_module.position = Vector2.ZERO
+	player_core_module.rotation = PI
+	player_core_module.comm_network = CommNetwork.new("player")
+	add_child(player_core_module)
+	$ViewCamera.position = player_core_module.position
+	$ViewCamera.reparent(player_core_module, false)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+	var module_thruster = thruster_scene.instantiate()
+	module_thruster.position = Vector2(30, 0)
+	player_core_module.add_child(module_thruster)
