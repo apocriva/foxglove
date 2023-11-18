@@ -1,20 +1,21 @@
 # Thruster thrusts when signal is active.
 
-extends Module
+class_name ModuleThruster extends Module
 
 @export var thruster_force:Vector2
-var active_force:Vector2 = Vector2.ZERO
+var _active_force:Vector2 = Vector2.ZERO
 
 var _channel_forward:CommChannel
 
 func _on_signal_updated(value):
 	if value == 0:
-		active_force = Vector2.ZERO
+		_active_force = Vector2.ZERO
 	else:
-		active_force = thruster_force
+		_active_force = thruster_force
 
-func _physics_process(_delta):
-	apply_central_force(active_force.rotated(global_rotation))
+func _physics_process(delta):
+	#constant_force = _active_force.rotated(global_rotation)
+	pass
 
 func _join_channels():
 	_channel_forward = comm_network.join_channel("forward", self, _on_signal_updated)
