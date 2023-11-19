@@ -5,6 +5,7 @@ extends Node2D
 @export_range(0.1, 10, 0.1) var spring_width:float
 
 var _joints_data:Array[Dictionary]
+@export var _rigidbodies:Array[RigidBody2D]
 
 func _ready():
 	_update_joints()
@@ -36,6 +37,8 @@ func _register_joints(node):
 func _draw():
 	for item in _joints_data:
 		_draw_joint(item)
+	for item in _rigidbodies:
+		_draw_com(item)
 
 func _draw_joint(item:Dictionary):
 	var joint = item["joint"]
@@ -49,3 +52,6 @@ func _draw_joint(item:Dictionary):
 	draw_circle(spring_start, spring_attach_size, spring_color)
 	draw_circle(spring_end, spring_attach_size, spring_color)
 	draw_line(spring_start, spring_end, spring_color, spring_width)
+
+func _draw_com(item:RigidBody2D):
+	draw_circle(item.global_position, 5, Color.BLUE)

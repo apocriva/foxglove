@@ -6,7 +6,7 @@
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_macg7"]
 
-[node name="Main" type="Node" node_paths=PackedStringArray("attract_body")]
+[node name="DampenedSpringTest" type="Node" node_paths=PackedStringArray("attract_body")]
 script = ExtResource("1_5xr2t")
 attract_body = NodePath("TestBodyA")
 click_force = 1000.0

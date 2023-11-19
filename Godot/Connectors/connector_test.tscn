@@ -1,0 +1,85 @@
+[gd_scene load_steps=6 format=3 uid="uid://56toalw7hhbh"]
+
+[ext_resource type="Script" path="res://connector_test.gd" id="1_j7ql7"]
+[ext_resource type="Script" path="res://test_body.gd" id="2_d7n7p"]
+[ext_resource type="Script" path="res://debug_info.gd" id="3_607fe"]
+[ext_resource type="Script" path="res://connector.gd" id="3_k47b2"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_macg7"]
+
+[node name="ConnectorTest" type="Node" node_paths=PackedStringArray("attract_body")]
+script = ExtResource("1_j7ql7")
+attract_body = NodePath("TestBodyA")
+click_force = 1000.0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="World" type="StaticBody2D" parent="."]
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World"]
+position = Vector2(0, 312)
+shape = SubResource("WorldBoundaryShape2D_macg7")
+debug_color = Color(0.886275, 0.6, 0.192157, 0.419608)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="World"]
+position = Vector2(-560, 0)
+rotation = 1.5708
+shape = SubResource("WorldBoundaryShape2D_macg7")
+debug_color = Color(0.886275, 0.6, 0.192157, 0.419608)
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="World"]
+position = Vector2(0, -312)
+rotation = 3.14159
+shape = SubResource("WorldBoundaryShape2D_macg7")
+debug_color = Color(0.886275, 0.6, 0.192157, 0.419608)
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="World"]
+position = Vector2(560, 0)
+rotation = -1.5708
+shape = SubResource("WorldBoundaryShape2D_macg7")
+debug_color = Color(0.886275, 0.6, 0.192157, 0.419608)
+
+[node name="TestBodyA" type="RigidBody2D" parent="."]
+center_of_mass_mode = 1
+continuous_cd = 2
+script = ExtResource("2_d7n7p")
+metadata/_edit_group_ = true
+
+[node name="Polygon2D" type="Polygon2D" parent="TestBodyA"]
+self_modulate = Color(0.545098, 0.552941, 0.65098, 1)
+polygon = PackedVector2Array(0, -32, 16, -8, 16, 16, -16, 16, -16, -8)
+
+[node name="Connector" type="Node2D" parent="TestBodyA"]
+position = Vector2(64, 0)
+script = ExtResource("3_k47b2")
+
+[node name="TestBodyB" type="RigidBody2D" parent="."]
+position = Vector2(64, 64)
+script = ExtResource("2_d7n7p")
+metadata/_edit_group_ = true
+
+[node name="Polygon2D" type="Polygon2D" parent="TestBodyB"]
+self_modulate = Color(0.66, 0.48444, 0.3828, 1)
+polygon = PackedVector2Array(0, -24, 24, -16, 24, 16, 0, 24, -24, 16, -24, -16)
+
+[node name="TestBodyB2" type="RigidBody2D" parent="."]
+position = Vector2(-64, 64)
+script = ExtResource("2_d7n7p")
+metadata/_edit_group_ = true
+
+[node name="Polygon2D" type="Polygon2D" parent="TestBodyB2"]
+self_modulate = Color(0.66, 0.48444, 0.3828, 1)
+polygon = PackedVector2Array(0, -24, 24, -16, 24, 16, 0, 24, -24, 16, -24, -16)
+
+[node name="DebugInfo" type="Node2D" parent="." node_paths=PackedStringArray("_rigidbodies")]
+top_level = true
+script = ExtResource("3_607fe")
+spring_color = Color(1, 1, 0, 0.501961)
+spring_attach_size = 5.0
+spring_width = 3.0
+_rigidbodies = [NodePath("../TestBodyA"), NodePath("../TestBodyB"), NodePath("../TestBodyB2")]
+
+[connection signal="child_entered_tree" from="TestBodyA" to="TestBodyA" method="_on_child_entered_tree"]
