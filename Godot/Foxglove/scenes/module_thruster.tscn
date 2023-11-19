@@ -13,9 +13,10 @@ size = Vector2(32, 32)
 [sub_resource type="QuadMesh" id="QuadMesh_cop2d"]
 size = Vector2(16, 8)
 
-[node name="ModuleThruster" type="RigidBody2D"]
+[node name="ModuleThruster" type="Node2D"]
 script = ExtResource("1_pvq6g")
 thruster_force = Vector2(0, 500)
+mass = 1.0
 metadata/_edit_group_ = true
 
 [node name="BlockMesh" type="MeshInstance2D" parent="."]
