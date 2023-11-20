@@ -1,0 +1,56 @@
+[gd_scene load_steps=7 format=3 uid="uid://dx371ad4n0l2q"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_foamt"]
+[ext_resource type="Material" uid="uid://yujqiehgtmvx" path="res://unlit_material.tres" id="2_wcc65"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_mmic2"]
+material = ExtResource("2_wcc65")
+size = Vector2(40, 40)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_e5jev"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_gk1lc"]
+material = ExtResource("2_wcc65")
+radial_segments = 16
+rings = 4
+
+[sub_resource type="SphereMesh" id="SphereMesh_paa1a"]
+material = ExtResource("2_wcc65")
+radius = 0.2
+height = 0.4
+radial_segments = 8
+rings = 4
+
+[node name="Main" type="Node"]
+
+[node name="GridMap" type="GridMap" parent="."]
+cell_size = Vector3(1, 1, 1)
+metadata/_editor_floor_ = Vector3(0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="GridMap"]
+instance_shader_parameters/color = Color(0.301961, 0.278431, 0.247059, 1)
+mesh = SubResource("PlaneMesh_mmic2")
+
+[node name="World" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World"]
+shape = SubResource("WorldBoundaryShape3D_e5jev")
+
+[node name="Player" type="Node3D" parent="."]
+script = ExtResource("1_foamt")
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+instance_shader_parameters/color = Color(0.270588, 0.517647, 0.639216, 1)
+mesh = SubResource("CapsuleMesh_gk1lc")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0.4)
+mesh = SubResource("SphereMesh_paa1a")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 9, 9)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.258819, -0.683013, 0.683013, 0, 0.707107, 0.707107, -0.965926, -0.183013, 0.183013, 13, 13, 0)
