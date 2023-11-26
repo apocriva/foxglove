@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dx371ad4n0l2q"]
+[gd_scene load_steps=17 format=3 uid="uid://dx371ad4n0l2q"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_2j01e"]
 [ext_resource type="Shader" uid="uid://bjwfg3xv1fc7y" path="res://checker.tres" id="1_6ribe"]
@@ -14,6 +14,17 @@ shader = ExtResource("1_6ribe")
 [sub_resource type="PlaneMesh" id="PlaneMesh_385b4"]
 material = SubResource("ShaderMaterial_yhwbg")
 size = Vector2(8, 8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rhyxd"]
+size = Vector3(8, 1, 8)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_heccy"]
+material = ExtResource("2_10ogn")
+size = Vector2(8, 2)
+orientation = 2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5bm5r"]
+size = Vector3(8, 2, 1)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_tuxsi"]
 material = ExtResource("2_10ogn")
@@ -35,17 +46,79 @@ shader_parameter/color = Color(0.192157, 0.192157, 0.219608, 0.47451)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_1lt77"]
 material = SubResource("ShaderMaterial_g4jao")
-size = Vector2(1, 1)
+size = Vector2(0.75, 0.75)
 subdivide_width = 4
 subdivide_depth = 4
 
 [node name="Node3D" type="Node"]
 
-[node name="Floor" type="MeshInstance3D" parent="."]
+[node name="Room" type="Node3D" parent="."]
+
+[node name="Floor" type="StaticBody3D" parent="Room"]
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Room/Floor"]
 instance_shader_parameters/color_a = Color(0.666667, 0.666667, 0.666667, 1)
 instance_shader_parameters/color_b = Color(0.533333, 0.533333, 0.533333, 1)
 instance_shader_parameters/gridsize = Vector2(8, 8)
 mesh = SubResource("PlaneMesh_385b4")
+skeleton = NodePath("../../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Room/Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("BoxShape3D_rhyxd")
+
+[node name="Wall" type="StaticBody3D" parent="Room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Room/Wall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+instance_shader_parameters/ColorParameter = Color(0.333333, 0.333333, 0.333333, 1)
+mesh = SubResource("PlaneMesh_heccy")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Room/Wall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.5)
+shape = SubResource("BoxShape3D_5bm5r")
+
+[node name="Wall4" type="StaticBody3D" parent="Room"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 4)
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Room/Wall4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+instance_shader_parameters/ColorParameter = Color(0.333333, 0.333333, 0.333333, 1)
+mesh = SubResource("PlaneMesh_heccy")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Room/Wall4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.5)
+shape = SubResource("BoxShape3D_5bm5r")
+
+[node name="Wall2" type="StaticBody3D" parent="Room"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4, 0, 0)
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Room/Wall2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+instance_shader_parameters/ColorParameter = Color(0.333333, 0.333333, 0.333333, 1)
+mesh = SubResource("PlaneMesh_heccy")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Room/Wall2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.5)
+shape = SubResource("BoxShape3D_5bm5r")
+
+[node name="Wall3" type="StaticBody3D" parent="Room"]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 4, 0, 0)
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Room/Wall3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+instance_shader_parameters/ColorParameter = Color(0.333333, 0.333333, 0.333333, 1)
+mesh = SubResource("PlaneMesh_heccy")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Room/Wall3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.5)
+shape = SubResource("BoxShape3D_5bm5r")
 
 [node name="Player" type="CharacterBody3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
@@ -81,9 +154,11 @@ mesh = SubResource("PlaneMesh_1lt77")
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0)
 script = ExtResource("2_ydqux")
 look_target = NodePath("../Player")
-lerp_strength = 2.0
+lerp_strength = 5.0
 metadata/_edit_group_ = true
 
 [node name="Camera3D" type="Camera3D" parent="CameraRoot"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
-fov = 45.0
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 12)
+current = true
+fov = 30.0
+far = 100.0
