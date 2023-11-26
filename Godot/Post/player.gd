@@ -8,7 +8,7 @@ var _target_rotation:float
 func _ready():
 	_target_rotation = rotation_degrees.y
 
-func _process(_delta):
+func _physics_process(_delta):
 	var input_vector = Vector3.ZERO
 
 	if Input.is_action_pressed("foot_left"):
