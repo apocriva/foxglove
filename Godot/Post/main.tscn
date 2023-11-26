@@ -1,56 +1,66 @@
-[gd_scene load_steps=7 format=3 uid="uid://dx371ad4n0l2q"]
+[gd_scene load_steps=10 format=3 uid="uid://dx371ad4n0l2q"]
 
-[ext_resource type="Script" path="res://player.gd" id="1_foamt"]
-[ext_resource type="Material" uid="uid://yujqiehgtmvx" path="res://unlit_material.tres" id="2_wcc65"]
+[ext_resource type="Script" path="res://player.gd" id="1_2j01e"]
+[ext_resource type="Shader" uid="uid://bjwfg3xv1fc7y" path="res://checker.tres" id="1_6ribe"]
+[ext_resource type="Material" uid="uid://33f336dtb587" path="res://unshaded_color_material.tres" id="2_10ogn"]
+[ext_resource type="Script" path="res://game_camera.gd" id="2_ydqux"]
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_mmic2"]
-material = ExtResource("2_wcc65")
-size = Vector2(40, 40)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yhwbg"]
+render_priority = 0
+shader = ExtResource("1_6ribe")
 
-[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_e5jev"]
+[sub_resource type="PlaneMesh" id="PlaneMesh_385b4"]
+material = SubResource("ShaderMaterial_yhwbg")
+size = Vector2(8, 8)
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_gk1lc"]
-material = ExtResource("2_wcc65")
-radial_segments = 16
-rings = 4
+[sub_resource type="CylinderMesh" id="CylinderMesh_tuxsi"]
+material = ExtResource("2_10ogn")
+top_radius = 0.25
+bottom_radius = 0.25
+height = 1.0
 
-[sub_resource type="SphereMesh" id="SphereMesh_paa1a"]
-material = ExtResource("2_wcc65")
-radius = 0.2
-height = 0.4
-radial_segments = 8
-rings = 4
+[sub_resource type="BoxMesh" id="BoxMesh_e6q26"]
+material = ExtResource("2_10ogn")
+size = Vector3(0.4, 0.3, 0.2)
 
-[node name="Main" type="Node"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ke1ra"]
+height = 1.0
 
-[node name="GridMap" type="GridMap" parent="."]
-cell_size = Vector3(1, 1, 1)
-metadata/_editor_floor_ = Vector3(0, 0, 0)
+[node name="Node3D" type="Node"]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="GridMap"]
-instance_shader_parameters/color = Color(0.301961, 0.278431, 0.247059, 1)
-mesh = SubResource("PlaneMesh_mmic2")
+[node name="Floor" type="MeshInstance3D" parent="."]
+instance_shader_parameters/color_a = Color(0.666667, 0.666667, 0.666667, 1)
+instance_shader_parameters/color_b = Color(0.533333, 0.533333, 0.533333, 1)
+instance_shader_parameters/gridsize = Vector2(8, 8)
+mesh = SubResource("PlaneMesh_385b4")
 
-[node name="World" type="StaticBody3D" parent="."]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="World"]
-shape = SubResource("WorldBoundaryShape3D_e5jev")
-
-[node name="Player" type="Node3D" parent="."]
-script = ExtResource("1_foamt")
+[node name="Player" type="CharacterBody3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+script = ExtResource("1_2j01e")
+look_lerp_strength = 25.0
+speed = 4.0
 metadata/_edit_group_ = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-instance_shader_parameters/color = Color(0.270588, 0.517647, 0.639216, 1)
-mesh = SubResource("CapsuleMesh_gk1lc")
+[node name="MeshBody" type="MeshInstance3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+instance_shader_parameters/ColorParameter = Color(0.0666667, 0.494118, 0.588235, 1)
+mesh = SubResource("CylinderMesh_tuxsi")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0.4)
-mesh = SubResource("SphereMesh_paa1a")
+[node name="MeshFace" type="MeshInstance3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, -0.2)
+instance_shader_parameters/ColorParameter = Color(0.14902, 0.254902, 0.368627, 1)
+mesh = SubResource("BoxMesh_e6q26")
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 9, 9)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("CylinderShape3D_ke1ra")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.258819, -0.683013, 0.683013, 0, 0.707107, 0.707107, -0.965926, -0.183013, 0.183013, 13, 13, 0)
+[node name="CameraRoot" type="Node3D" parent="." node_paths=PackedStringArray("look_target")]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0)
+script = ExtResource("2_ydqux")
+look_target = NodePath("../Player")
+lerp_strength = 2.0
+
+[node name="Camera3D" type="Camera3D" parent="CameraRoot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
+fov = 45.0

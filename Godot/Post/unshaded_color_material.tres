@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://33f336dtb587"]
+
+[ext_resource type="Shader" uid="uid://c0mg7n461oepq" path="res://unshaded_color.tres" id="1_gnf7j"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_gnf7j")
